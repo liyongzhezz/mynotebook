@@ -3,11 +3,11 @@
 *args是用来将参数打包成为元组的，例如：
 
 ```python
-def	args_show(*args):
-	print(type(args))
-	print(args)
-	for index, evl in enumerate(args):
-		print(index, evl)
+def args_show(*args):
+  print(type(args))
+  print(args)
+  for index, evl in enumerate(args):
+    print(index, evl)
 ```
 
 
@@ -26,7 +26,7 @@ def	args_show(*args):
 
 
 
-如果参数为一个列表，则需要使用 <font color=red>*</font> 将列表打散：
+如果参数为一个列表，则需要使用```diff - *``` 将列表打散：
 
 ```python
 args_show(*[1,2,3])
@@ -62,7 +62,7 @@ b:2
 
 
 
-如果传入的参数是一个字典，则需要使用 <font color=red>**</font> 将元素打散：
+如果传入的参数是一个字典，则需要使用```diff -  **``` 将元素打散：
 
 ```python
 kwargs_show(**dict(a=1, b=2, c=3)) 
