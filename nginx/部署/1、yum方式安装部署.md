@@ -7,7 +7,7 @@
 
 
 ```bash
-yum install -y gcc gcc-c++ autoconf pcre pcre-devel make automake yum-utils
+yum install -y gcc gcc-c++ autoconf pcre pcre-devel make automake yum-utils zlib zlib-devel openssl openssl-devel
 ```
 
 
@@ -20,19 +20,11 @@ yum install -y wget http-tools vim
 
 
 
-<br>
-
-
-
-## yum方式安装
-
-
+## 添加nginx的yum源
 
 <br>
 
 
-
-### 添加nginx的yum源
 
 ```bash
 cat > /etc/yum.repos.d/nginx.repo << EOF
@@ -56,7 +48,11 @@ EOF
 
 
 
-### 查看nginx版本
+## 查看nginx版本
+
+<br>
+
+
 
 ```bash
 yum list | grep nginx
@@ -64,7 +60,11 @@ yum list | grep nginx
 
 
 
-### 安装最新稳定版
+## 安装最新稳定版
+
+<br>
+
+
 
 > 这里我的版本为1.18.0
 
@@ -76,7 +76,11 @@ yum install -y nginx
 
 
 
-### 查看nginx版本和编译参数
+## 查看nginx版本和编译参数
+
+<br>
+
+
 
 ```bash
 # 查看nginx版本
@@ -88,7 +92,11 @@ nginx -V
 
 
 
-### 默认安装的目录和文件
+## 默认安装的目录和文件
+
+<br>
+
+
 
 使用下面的命令可以查看nginx通过rpm方式安装的目录结构和文件：
 
@@ -112,3 +120,31 @@ rpm -ql nginx
 - `/etc/nginx/mime.types`：设置http协议的Content-Type与扩展名对应关系的配置文件；
 - `/var/cache/nginx`：用于缓存的目录；
 - `/var/log/nginx`：日志目录；
+
+
+
+
+
+## 启动
+
+<br>
+
+
+
+```bash
+# 启动
+systemctl start nginx
+
+# 开机自启动
+systemctl enable nginx
+
+# 查看nginx状态
+systemctl status nginx
+
+# 停止nginx
+systemctl stop nginx
+
+# 重启
+systemctl restart nginx
+```
+
