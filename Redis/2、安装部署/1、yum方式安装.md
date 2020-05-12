@@ -17,6 +17,8 @@ yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 yum --enablerepo=remi install redis -y
 ```
 
+<br>
+
 
 
 #  安装Redis
@@ -27,6 +29,8 @@ yum --enablerepo=remi install redis -y
 yum install -y redis
 redis-cli --version
 ```
+
+<br>
 
 
 
@@ -39,6 +43,8 @@ redis-cli --version
 ```bash
 bind 0.0.0.0
 ```
+
+<br>
 
 
 
@@ -58,6 +64,8 @@ echo "sysctl vm.overcommit_memory=1" >> /etc/rc.local
 - 1：内核分配所有的物理内存而不管当前内存状态；
 - 0：内核检查是否有足够的内存共当前进程使用，没有则会返回错误给进程；
 - 2：内核允许分配超过物理内存和交换空间总和的内存；
+
+<br>
 
 
 
