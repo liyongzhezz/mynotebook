@@ -1,0 +1,10 @@
+## nginx的常用模块
+
+rewrite模块，实现重写功能
+access模块：来源控制
+ssl模块：安全加密
+ngx_http_gzip_module：网络传输压缩模块
+ngx_http_proxy_module 模块实现代理
+ngx_http_upstream_module模块实现定义后端服务器列表
+ngx_cache_purge实现缓存清除功能
+
