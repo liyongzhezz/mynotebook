@@ -20,7 +20,7 @@ helm install nfs-storageclass --set nfs.server=10.8.138.8 --set nfs.path=/opt/nf
 
 
 
-## Pvc使用storageclass
+## PVC使用storageclass
 
 ```yaml
 apiVersion: v1
