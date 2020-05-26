@@ -12,7 +12,7 @@
 
 ## 环境准备
 
-![](static/single-master.jpg)
+![](static/single-master.png)
 
 | 角色       | IP            |
 | ---------- | ------------- |
