@@ -56,7 +56,13 @@ systemctl enable nfs
 
 
 
-**每一个节点都应该安装`nfs-utils`，这个后面会装上**
+在集群的每一个节点上执行下面的命令安装`nfs-utils`工具：
+
+```bash
+yum install -y nfs-utils 
+```
+
+
 
 
 
@@ -540,6 +546,22 @@ kubeadm join 10.8.138.12:6443 --token z9ibq2.s5ttzyxvc49mep02 \
 ```
 
 > 不需要拷贝kubeadm-config.yaml文件，会通过第一个apiserver回去配置信息；
+
+
+
+<br>
+
+
+
+## 配置kubectl自动补全
+
+```bash
+ansible master -m shell -a 'echo "source <(kubectl completion bash)" >> ~/.bashrc'
+```
+
+<br>
+
+
 
 
 
