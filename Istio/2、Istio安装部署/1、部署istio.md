@@ -11,6 +11,7 @@
 下载 Istio，下载内容包含安装文件、示例和 [istioctl](https://istio.io/zh/docs/reference/commands/istioctl/) 命令行工具。
 
 ```shell
+export ISTIO_VERSION=1.5.1
 curl -L https://istio.io/downloadIstio | sh -
 cd istio-1.5.1
 export PATH=$PWD/bin:$PATH
@@ -44,6 +45,16 @@ echo "source ~/istioctl.bash" >> /root/.bashrc
 ```shell
 istioctl manifest apply --set profile=demo
 ```
+
+
+
+demo为使用的部署配置名称，istioctl提供了多种部署配置，使用如下的命令查看：
+
+```bash
+istioctl profile list
+```
+
+> 生产建议使用default。
 
 
 
