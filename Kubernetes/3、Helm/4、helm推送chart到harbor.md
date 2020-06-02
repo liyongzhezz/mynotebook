@@ -86,3 +86,23 @@ helm push test-helm-0.1.0.tgz myharbor --username admin --password Harbor12345
 
 
 
+<br>
+
+
+
+## 搜索harbor中的helm chart
+
+推送上去后首先更新helm repo：
+
+```bash
+helm repo update
+```
+
+
+
+然后就可以搜索到了：
+
+```bash
+helm search repo test
+```
+
