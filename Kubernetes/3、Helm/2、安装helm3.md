@@ -29,6 +29,20 @@ helm version
 
 
 
+默认使用的是`/root/.kube/confg`作为连接集群的kubeconfig，如果文件在其他地方则使用`--kubeconfig <file-path>`来指定。
+
+<br>
+
+
+
+## helm命令补全
+
+```bash
+yum install -y bash-completion
+source /usr/share/bash-completion/bash_completion
+source <(helm completion bash)
+```
+
 <br>
 
 
