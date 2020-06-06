@@ -1,4 +1,4 @@
-<br>
+## <br>
 
 ## 规划
 
@@ -19,7 +19,50 @@
 
 集群使用`1.17.3`版本
 
+
+
 <br>
+
+
+
+## 升级内核版本
+
+**注意，我这里计划使用ipvs模式，需要升级内核版本，每台服务器都升级一下**
+
+```bash
+# 载入公钥
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+
+# 安装 ELRepo 最新版本
+yum install -y https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
+
+# 列出可以使用的 kernel 包版本
+yum list available --disablerepo=* --enablerepo=elrepo-kernel
+
+# 安装内核
+yum install -y kernel-lt-4.4.226-1.el7.elrepo --enablerepo=elrepo-kernel
+
+# 查看可用内核
+cat /boot/grub2/grub.cfg | grep menuentry
+
+menuentry 'CentOS Linux (3.10.0-1062.el7.x86_64) 7 (Core)' --class centos （略）
+menuentry 'CentOS Linux (4.4.226-1.el7.elrepo.x86_64) 7 (Core)' --class centos ...（略）
+
+# 设置从新的内核起动
+grub2-set-default "CentOS Linux (4.4.226-1.el7.elrepo.x86_64) 7 (Core)"
+
+# 查看内核启动项
+grub2-editenv list
+
+saved_entry=CentOS Linux (4.4.226-1.el7.elrepo.x86_64) 7 (Core)
+
+# 重启
+reboot
+```
+
+<br>
+
+
 
 
 
@@ -257,7 +300,7 @@ ansible cluster -m shell -a 'yum-config-manager --add-repo https://download.dock
 ```bash
 mkdir /var/lib/docker
 mkfs.xfs -f /dev/vdb
-echo "/dev/vdb /var/lib/docker xfs default 0 0" >> /etc/fstab
+echo "/dev/vdb /var/lib/docker xfs defaults 0 0" >> /etc/fstab
 mount -a
 df -h
 ```
@@ -347,7 +390,7 @@ done
 EOF
 
 ansible cluster -m copy -a 'src=/tmp/ipvs.modules dest=/tmp/ipvs.modules mode=0755'
-ansible cluster -m shell -a '/tmp/ipvs.modules'
+ansible cluster -m shell -a 'sh /tmp/ipvs.modules'
 
 # 验证 ipvs 支持
 ansible cluster -m shell -a 'lsmod | grep ip_vs'
@@ -715,7 +758,7 @@ curl -L https://docs.projectcalico.org/v3.11/manifests/calico.yaml -o calico.yam
 ```yaml
 # 修改为pod网段
 - name: CALICO_IPV4POOL_CIDR
-  value: "10.100.0.0/16"
+  value: "172.21.0.0/16"
   
 # 增加该参数，设定端口范围
 - name: FELIX_KUBENODEPORTRANGES
