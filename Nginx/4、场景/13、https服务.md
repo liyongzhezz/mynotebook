@@ -74,3 +74,106 @@ server {
 }
 ```
 
+
+
+<br>
+
+
+
+## 实例--苹果要求的https配置
+
+苹果要求的https配置：
+
+- 服务器所有连接使用TLS1.2以上（openssl1.0.2）；
+- https证书使用SHA256以上的哈希算法签名；
+- https证书使用RSA 2048位或ECC 256位以上公钥算法；
+- 使用前向加密技术；
+
+
+
+首先查看openssl版本：
+
+```bash
+$ openssl version
+OpenSSL 1.0.2k-fips  26 Jan 2017
+```
+
+
+
+升级openssl可以使用如下的命令：
+
+```bash
+wget https://www.openssl.org/source/openssl-1.0.2k.tar.gz
+tar zxf openssl-1.0.2k.tar.gz
+cd openssl-1.0.2k
+./configure --prefix=/usr/local/openssl
+make && make install 
+mv /usr/bin/openssl  /usr/bin/openssl.old
+mv /usr/include/openssl /usr/include/openssl.old
+ln -s /usr/local/openssl/bin/openssl /usr/bin/openssl
+ln -s /usr/local/openssl/include/openssl /usr/include/openssl
+echo "/usr/local/openssl/lib" >> /etc/ld.so.conf
+ldconfig -v
+openssl version -a
+```
+
+
+
+创建证书：
+
+```bash
+# 生成证书
+openssl req -days 3650 -x509 -sha256 -nodes -newkey rsa:2048 -keyout nginx.key -out nginx.crt
+```
+
+<br>
+
+
+
+## https优化
+
+
+
+### 打开keepalive长连接
+
+通过添加`keepalive`参数来打开长连接，例如：
+
+```nginx
+# 长连接保持100秒
+server {
+  listen 443 ssl;
+  server_name localhost;
+  
+  keepalive_timeout 100;
+
+  ssl_certificate /etc/nginx/ssl/nginx.crt;
+  ssl_certificate_key /etc/nginx/ssl/nginx.key;
+
+  ......
+}
+```
+
+
+
+
+
+### 设置ssl session缓存
+
+通过添加`ssl_session_cache`和`ssl_session_timeout`来打开ssl缓存：
+
+```nginx
+# 开启10M的缓存，大约可存储8K-10K个会话，10分钟后缓存过期。
+server {
+  listen 443 ssl;
+  server_name localhost;
+  
+  ssl_session_cache shared:SSL:10m;
+  ssl_session_timeout 10m;
+
+  ssl_certificate /etc/nginx/ssl/nginx.crt;
+  ssl_certificate_key /etc/nginx/ssl/nginx.key;
+
+  ......
+}
+```
+
