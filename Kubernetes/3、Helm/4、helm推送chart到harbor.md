@@ -22,6 +22,29 @@ harbor1.6之后有一个新的特性，支持将chart包推送到harbor中进行
 helm plugin install https://github.com/chartmuseum/helm-push
 ```
 
+
+
+如果上边在线安装很慢，可以使用下面离线安装的方式：
+
+```bash
+mkdir -p /root/.helm/plugins/helm-push
+cd /root/.helm/plugins/helm-push
+wget https://github.com/chartmuseum/helm-push/releases/download/v0.8.1/helm-push_0.8.1_linux_amd64.tar.gz
+tar zxf helm-push_0.8.1_linux_amd64.tar.gz
+```
+
+
+
+查看安装的插件：
+
+```bash
+$ helm plugin ls
+NAME	VERSION	DESCRIPTION
+push	0.8.1  	Push chart package to ChartMuseum
+```
+
+
+
 <br>
 
 

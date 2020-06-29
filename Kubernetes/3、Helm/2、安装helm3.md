@@ -19,7 +19,7 @@ mv linux-amd64/helm /usr/local/bin/helm
 
 <br>
 
-
+https://gogs.pase-hrx-stg1.zhi-niao.com/ipaas/pase-install.git
 
 ## 验证
 
